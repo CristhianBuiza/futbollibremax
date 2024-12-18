@@ -1,0 +1,78 @@
+<header>
+  <div class="logo">
+    <a href="/">
+      <img
+        src="https://the.streameast.app/images/logo.png"
+        alt="Logo Futbol Libre Max"
+      />
+    </a>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/NFL">NFL</a></li>
+      <li><a href="/NBA">NBA</a></li>
+      <li><a href="/NHL">NHL</a></li>
+      <li><a href="/CFB">CFB</a></li>
+      <li><a href="/NCAAB">NCAAB</a></li>
+      <li><a href="/BOXING">BOXING</a></li>
+      <li><a href="/MMA-UFC">MMA/UFC</a></li>
+      <li><a href="/F1">F1</a></li>
+      <li><a href="/Multi Stream">Multi Stream</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(33, 135, 15);
+    background: linear-gradient(
+      90deg,
+      rgba(33, 135, 15, 1) 26%,
+      rgba(0, 179, 101, 1) 100%
+    );
+    padding: 10px 20px; /* Espaciado arriba/abajo y laterales */
+    font-family: Arial, sans-serif;
+    height: 30px;
+  }
+
+  /* Logo Styling */
+  .logo img {
+    width: 100px; /* Ajusta el tamaño del logo */
+    height: auto;
+    display: block;
+  }
+
+  .logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  /* Navigation Styling */
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul li {
+    margin: 0 10px;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: #fff; /* Blanco */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  nav ul li a:hover {
+    color: #000; /* Negro al hacer hover */
+  }
+</style>

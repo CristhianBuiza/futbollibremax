@@ -1,4 +1,8 @@
-<!doctype html>
+---
+import Header from "../components/global-components/Header.astro";
+import Footer from "../components/global-components/Footer.astro";
+---
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,6 +12,32 @@
     <title>Astro Basics</title>
   </head>
   <body>
+    <Header />
     <slot />
+    <Footer />
   </body>
 </html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  html,
+  body {
+    height: 100%; /* Ocupa toda la pantalla */
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: rgb(15, 15, 15);
+  }
+  .content {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+  }
+</style>
