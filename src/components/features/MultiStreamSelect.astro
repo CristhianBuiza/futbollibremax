@@ -2,16 +2,11 @@
 const response = await fetch("http://localhost:4321/diaries.json").then((res) =>
   res.json()
 );
-let diaries = response.data;
-diaries.sort((a, b) => {
-  const timeA = new Date(`1970-01-01T${a.attributes.diary_hour}Z`);
-  const timeB = new Date(`1970-01-01T${b.attributes.diary_hour}Z`);
-  return timeA - timeB;
-});
+const diaries = response.data;
 ---
 
 <div
-  class="w-full py-0 px-0 flex flex-col mt-5 mx-auto align-middle md:py-3 md:px-4 bg-[#80808030] rounded-lg md:w-5/6"
+  class="flex flex-col mt-5 mx-auto align-middle py-3 px-4 bg-[#80808030] rounded-lg w-5/6"
 >
   <input
     type="text"
@@ -38,9 +33,13 @@ diaries.sort((a, b) => {
                 {diary.attributes.embeds.data.map((embed) => {
                   return (
                     <li class="hover:text-green-600">
-                      <a class="text-sm" href={embed.attributes.embed_iframe}>
+                      <div
+                        class="flex items-center select-item"
+                        data-embed={embed.attributes.embed_iframe}
+                      >
+                        <input type="checkbox" class="mr-2" />
                         {embed.attributes.embed_name}
-                      </a>
+                      </div>
                     </li>
                   );
                 })}
@@ -51,12 +50,29 @@ diaries.sort((a, b) => {
       })
     }
   </ul>
-
+  <button
+    id="create-url"
+    class="bg-green-600 text-white font-bold py-2 px-4 rounded-full mt-4"
+  >
+    Create Multi-Stream URL
+  </button>
   <style>
+    /* ul {
+      padding: 0;
+    } */
+
     li {
       list-style: none;
     }
+    .select-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
 
+    .select-item input[type="checkbox"] {
+      pointer-events: none; /* So that the checkbox cannot be directly clicked separately */
+    }
     .team-color-icon {
       display: flex;
       flex-direction: row;
@@ -69,6 +85,7 @@ diaries.sort((a, b) => {
     .match-name {
       display: flex;
       flex-direction: column;
+      font-size: 1.2rem;
       font-weight: lighter;
       color: #646464;
     }
@@ -137,6 +154,15 @@ diaries.sort((a, b) => {
       }
     });
   });
+  document.querySelectorAll(".select-item").forEach((selectItem) => {
+    selectItem.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      // Toggle checkbox checked state
+      const checkbox = selectItem.querySelector("input[type='checkbox']");
+      checkbox.checked = !checkbox.checked;
+    });
+  });
 
   const searchInput = document.querySelector('input[type="text"]');
   searchInput.addEventListener("input", function () {
@@ -155,5 +181,22 @@ diaries.sort((a, b) => {
         item.style.display = "none";
       }
     });
+  });
+  document.getElementById("create-url").addEventListener("click", () => {
+    const selectedItems = [];
+    document
+      .querySelectorAll(".select-item input[type='checkbox']:checked")
+      .forEach((checkbox) => {
+        const embedIframe = checkbox
+          .closest(".select-item")
+          .getAttribute("data-embed");
+        selectedItems.push(embedIframe);
+      });
+
+    const queryString = selectedItems.join(",");
+    const url = `multi-stream/selected?q=${encodeURIComponent(queryString)}`;
+
+    // Perform an action with the URL, such as redirecting
+    window.location.href = url;
   });
 </script>

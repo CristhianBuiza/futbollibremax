@@ -1,0 +1,42 @@
+.container {
+  width: 60%;
+}
+
+.container.teatro-mode {
+  padding: 0;
+  height: 100vh;
+  flex-direction: column;
+}
+
+#reproductor-iframe.teatro-mode {
+  width: 100%;
+  height: calc(100% - 60px);
+  /* adjust according to button height */
+}
+
+#teatro-buttons.teatro-mode {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#teatro-buttons.teatro-mode button {
+  margin: 0 10px;
+  flex: 1;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Loader styles */
+.loader {
+  border-top-color: #3498db;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

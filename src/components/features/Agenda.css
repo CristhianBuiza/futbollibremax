@@ -1,0 +1,41 @@
+.imgtan {
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+/* src/components/SkeletonItem.css */
+.skeleton-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background-color: #f3f3f3;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-time,
+.skeleton-img,
+.skeleton-text {
+  background-color: #e0e0e0;
+  border-radius: 0.25rem;
+}
+
+.skeleton-time {
+  width: 3rem;
+  height: 1rem;
+}
+
+.skeleton-img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+}
+
+.skeleton-text {
+  flex: 1;
+  height: 1rem;
+  margin-left: 1rem;
+}
