@@ -10,7 +10,7 @@ const diaries = response.data;
 >
   <input
     type="text"
-    placeholder="Search games or categories"
+    placeholder="Buscar partido"
     class="w-full bg-[#80808050] p-2 rounded-lg text-white border-2 border-green-700 py-3"
   />
   <ul class="w-full mt-2">
@@ -52,9 +52,9 @@ const diaries = response.data;
   </ul>
   <button
     id="create-url"
-    class="bg-green-600 text-white font-bold py-2 px-4 rounded-full mt-4"
+    class="bg-green-600 text-white font-bold py-2 px-4 rounded-full mt-4 hover:bg-emerald-500"
   >
-    Create Multi-Stream URL
+    Crear Multi-Stream
   </button>
   <style>
     /* ul {
@@ -136,6 +136,28 @@ const diaries = response.data;
 </div>
 
 <script>
+  const createUrlButton = document.getElementById("create-url");
+  const checkboxes = document.querySelectorAll(
+    ".select-item input[type='checkbox']"
+  );
+
+  // Initialize button as disabled
+  createUrlButton.disabled = true;
+  createUrlButton.classList.add("opacity-50", "cursor-not-allowed"); // Optional: makes the button look disabled
+
+  function toggleButtonState() {
+    const anyChecked = Array.from(checkboxes).some(
+      (checkbox) => checkbox.checked
+    );
+    createUrlButton.disabled = !anyChecked;
+
+    if (anyChecked) {
+      createUrlButton.classList.remove("opacity-50", "cursor-not-allowed");
+    } else {
+      createUrlButton.classList.add("opacity-50", "cursor-not-allowed");
+    }
+  }
+
   document.querySelectorAll("li").forEach((li) => {
     li.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -154,13 +176,14 @@ const diaries = response.data;
       }
     });
   });
-  document.querySelectorAll(".select-item").forEach((selectItem) => {
-    selectItem.addEventListener("click", (event) => {
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.closest(".select-item").addEventListener("click", (event) => {
       event.stopPropagation();
 
       // Toggle checkbox checked state
-      const checkbox = selectItem.querySelector("input[type='checkbox']");
       checkbox.checked = !checkbox.checked;
+      toggleButtonState();
     });
   });
 
@@ -182,7 +205,10 @@ const diaries = response.data;
       }
     });
   });
-  document.getElementById("create-url").addEventListener("click", () => {
+
+  createUrlButton.addEventListener("click", () => {
+    if (createUrlButton.disabled) return;
+
     const selectedItems = [];
     document
       .querySelectorAll(".select-item input[type='checkbox']:checked")
